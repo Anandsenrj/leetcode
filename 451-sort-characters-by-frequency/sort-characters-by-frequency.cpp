@@ -1,16 +1,30 @@
 class Solution {
 public:
+    typedef pair<char,int> P; //defining here to use later
     string frequencySort(string s) {
-        vector<int> freq(128,0);
-        for(auto ch :s) freq[ch]++;
+        vector<P> vec (123);
 
-        auto cmp = [&](char a,char b){
-            if(freq[a]==freq[b])
-            return a<b;
-            return freq[a]> freq[b];
-        };
-        sort(s.begin(),s.end(),cmp);
+        for(char &ch :s){
+            int freq = vec[ch].second;
+            vec[ch] = {ch,freq+1};
+        }
+     auto lambda = [&](P&p1,P&p2){
+        return p1.second>p2.second;
+     };
 
-        return s;
+     sort(begin(vec),end(vec),lambda);
+
+     string result = "";
+
+     for(int i = 0;i<122;i++){
+        if(vec[i].second >0){
+            char ch =vec[i].first;
+            int freq=vec[i].second;
+            string temp = string(freq,ch);
+
+            result +=temp;
+        }
+     }
+     return result;
     }
 };
