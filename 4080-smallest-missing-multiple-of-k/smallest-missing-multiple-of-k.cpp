@@ -2,9 +2,9 @@ class Solution {
 public:
     int missingMultiple(vector<int>& nums, int k) {
         vector<int> arr(102,0);
-        for(auto x :nums){
-            if(x%k==0){
-                int which_multiple = x/k;
+        for(int j = 0;j<nums.size();j++){
+            if(nums[j]%k==0){
+                int which_multiple = nums[j]/k;
                 arr[which_multiple]=1;
             }
         }
