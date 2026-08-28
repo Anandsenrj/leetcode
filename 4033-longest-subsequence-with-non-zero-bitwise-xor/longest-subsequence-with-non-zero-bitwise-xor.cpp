@@ -12,7 +12,7 @@ public:
                 allzeros=false;
             }
         }
-        if(allzeros){
+        if(allzeros ==true){
             return 0;
         }
         return resultXor==0?n-1:n;
