@@ -1,1 +1,1 @@
-<h2>construct-uniform-parity-array-ii Notes</h2><hr>[ Time taken: 2hrs 6m 27s ]
+<h2>construct-uniform-parity-array-ii Notes</h2><hr>[ Time taken: 2hrs 6m 11s ]
