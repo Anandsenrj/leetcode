@@ -1,4 +1,4 @@
-/* Write your T-SQL query statement below */
+-- Write your PostgreSQL query statement below
 select st.student_id,st.student_name,su.subject_name,count(e.student_id) as attended_exams 
 from students st 
 cross join subjects su 
