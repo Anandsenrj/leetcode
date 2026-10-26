@@ -4,10 +4,10 @@ public:
     vector<vector<int>> directions{{0,1},{0,-1},{1,0},{-1,0}};
     
     long long dfs(int i,int j,vector<vector<int>>& grid){
-        //     if (i < 0 || i >= m || j < 0 || j >= n ||
-        //     grid[i][j] == 0) {
-        //     return 0;
-        // }
+            if (i < 0 || i >= m || j < 0 || j >= n ||
+            grid[i][j] == 0) {
+            return 0;
+        }
         long long sum=grid[i][j];
         grid[i][j]=0;
       
