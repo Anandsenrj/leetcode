@@ -1,35 +1,46 @@
 class Solution {
 public:
-    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        unordered_map<int, vector<int>> adj;
-        vector<bool> visited(numCourses, false);
-        vector<bool> inrecursion(numCourses, false);
+    bool canFinish(int v, vector<vector<int>>& prerequisites) {
+        //step 1 initialize graph
+        vector<vector< int>> graph(v);
+        // step 2 a come after b 
+        for(auto &p : prerequisites){
+            int a = p[0];
+            int b = p[1];
+            graph[b].push_back(a);
 
-        for (auto &vec : prerequisites) {
-            int a = vec[0], b = vec[1];
-            adj[b].push_back(a);            
         }
 
-        for (int i = 0; i < numCourses; i++) {
-            if (!visited[i] && isCycleDFS(adj, i, visited, inrecursion))
-                return false;
-        }
-        return true;
-    }                                      
+        //step 3 calculate indegree
 
-    bool isCycleDFS(unordered_map<int, vector<int>>& adj, int u,
-                    vector<bool>& visited, vector<bool>& inrecursion) {
-        visited[u] = true;
-        inrecursion[u] = true;
-
-        for (int &v : adj[u]) {
-            if (!visited[v] && isCycleDFS(adj, v, visited, inrecursion))
-                return true;
-            else if (inrecursion[v])
-                return true;                
+        vector<int> indegree(v,0);
+        for(int i=0; i<v; i++){
+            for(auto neighbour : graph[i]){
+                indegree[neighbour]++;
+            }
         }
 
-        inrecursion[u] = false;              
-        return false;
-    }                                       
-};                                          
+       //  step 4 define queue
+       queue<int> qu;
+       for(int i=0; i<v; i++){
+        if(indegree[i] == 0){
+            qu.push(i);
+        }
+       }
+       // Kahn's algorithm
+       int count = 0;
+       while(not qu.empty()){
+        int node = qu.front();
+        qu.pop();
+        count++;
+        for(auto neighbour : graph[node]){
+            indegree[neighbour]--;
+            if(indegree[neighbour] == 0){
+                qu.push(neighbour);
+            }
+        }
+       }
+       return count == v;
+        
+    }
+};
